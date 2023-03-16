@@ -20,10 +20,14 @@ import org.springframework.core.convert.converter.Converter;
 public class ServiceConfig {
 
     @Bean
-    public IUserManagementService userManagementService(IUserManagementRepository iUserManagementRepository,
+    public IUserManagementService userManagementService(IUserManagementRepository userManagementRepository,
+                                                        IRoleService roleService,
+                                                        IStatusService statusService,
                                                         Converter<UserCreateUpdateDTO, User> userCreateDTOtoEntityConverter,
                                                         Converter<User, UserDTO> userEntityToDTOConverter) {
-        return new UserManagementService(iUserManagementRepository,
+        return new UserManagementService(userManagementRepository,
+                roleService,
+                statusService,
                 userCreateDTOtoEntityConverter,
                 userEntityToDTOConverter);
     }
