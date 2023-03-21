@@ -3,7 +3,9 @@ package by.itacademy.fitness.service.impl;
 import by.itacademy.fitness.dao.entity.Status;
 import by.itacademy.fitness.dao.repository.IStatusRepository;
 import by.itacademy.fitness.service.api.IStatusService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class StatusService implements IStatusService {
     private IStatusRepository statusRepository;
 

@@ -3,7 +3,9 @@ package by.itacademy.fitness.service.impl;
 import by.itacademy.fitness.dao.entity.Role;
 import by.itacademy.fitness.dao.repository.IRoleRepository;
 import by.itacademy.fitness.service.api.IRoleService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class RoleService implements IRoleService {
     private IRoleRepository roleRepository;
 

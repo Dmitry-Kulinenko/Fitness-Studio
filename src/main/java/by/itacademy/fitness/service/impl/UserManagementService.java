@@ -12,10 +12,12 @@ import by.itacademy.fitness.service.api.IUserManagementService;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Service
 public class UserManagementService implements IUserManagementService {
     private IUserRepository userRepository;
     private IRoleService roleService;
