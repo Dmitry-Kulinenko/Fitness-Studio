@@ -4,6 +4,7 @@ package by.itacademy.fitness.controller;
 import by.itacademy.fitness.core.dto.UserCreateUpdateDTO;
 import by.itacademy.fitness.core.dto.UserDTO;
 import by.itacademy.fitness.service.api.IUserManagementService;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,7 @@ public class UserManagementController {
     }
 
     @PostMapping
-    public ResponseEntity<UserCreateUpdateDTO> create(@RequestBody UserCreateUpdateDTO user) {
+    public ResponseEntity<UserCreateUpdateDTO> create(@Valid @RequestBody UserCreateUpdateDTO user) {
         service.create(user);
         System.out.println(user);
         return ResponseEntity.status(HttpStatus.CREATED)
