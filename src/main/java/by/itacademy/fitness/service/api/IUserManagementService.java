@@ -11,12 +11,12 @@ import java.util.UUID;
 
 public interface IUserManagementService {
 
-    void create(UserCreateUpdateDTO userCreateDTO);
+    void create(UserCreateUpdateDTO userCreateUpdateDTO);
 
     Page<UserDTO> getPage(Pageable pageable);
 
     UserDTO get(UUID uuid);
 
-    void update(UUID uuid, LocalDateTime updateDateTime, UserCreateUpdateDTO userCreateDTO);
+    void update(UUID uuid, LocalDateTime updateDateTime, UserCreateUpdateDTO userCreateUpdateDTO);
 
 }
