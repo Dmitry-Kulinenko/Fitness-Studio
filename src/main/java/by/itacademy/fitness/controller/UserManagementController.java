@@ -15,10 +15,10 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/users")
-public class UserController {
+public class UserManagementController {
     private IUserManagementService service;
 
-    public UserController(IUserManagementService service) {
+    public UserManagementController(IUserManagementService service) {
         this.service = service;
     }
 
