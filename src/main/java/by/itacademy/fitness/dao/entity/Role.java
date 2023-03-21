@@ -1,14 +1,10 @@
 package by.itacademy.fitness.dao.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.*;
 
 @Entity
 @Table(schema = "fitness", name = "user_role")
-@JsonPropertyOrder({
-        "role"
-})
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

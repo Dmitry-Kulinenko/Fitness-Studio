@@ -7,9 +7,6 @@ import by.itacademy.fitness.service.api.IStatusService;
 public class StatusService implements IStatusService {
     private IStatusRepository statusRepository;
 
-    public StatusService() {
-    }
-
     public StatusService(IStatusRepository statusRepository) {
         this.statusRepository = statusRepository;
     }
