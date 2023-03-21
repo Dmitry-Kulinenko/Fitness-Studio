@@ -2,6 +2,9 @@ package by.itacademy.fitness.core.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
 
 @JsonPropertyOrder({
         "mail",
@@ -11,10 +14,16 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "password"
 })
 public class UserCreateUpdateDTO {
+    @Email(message = "Invalid email")
+    @NotBlank(message = "The email is blank")
     private String mail;
+    @NotBlank(message = "The name cannot be blank")
     private String fullName;
+    @NotBlank(message = "The role cannot be blank")
     private String role;
+    @NotBlank(message = "The status cannot be blank")
     private String status;
+    @NotBlank(message = "The password cannot be blank")
     private String password;
 
     public UserCreateUpdateDTO() {
