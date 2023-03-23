@@ -3,6 +3,8 @@ package by.itacademy.fitness.dao.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 @Entity
@@ -10,26 +12,28 @@ import java.util.UUID;
 public class User {
     @Id
     @GeneratedValue
+    @Column(name = "id")
     private UUID uuid;
     @Column(name = "dt_create")
-    private LocalDateTime creationDateTime = LocalDateTime.now();
-    @Column(name = "dt_update")
+    private LocalDateTime creationDateTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
     @Version
-    private LocalDateTime updateDateTime = LocalDateTime.now();
+    @Column(name = "dt_update")
+    private LocalDateTime updateDateTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
 
     private String mail;
     private String password;
     @Column(name = "fio")
     private String fullName;
     @ManyToOne
-    @JoinColumn(name = "user_role")
+    @JoinColumn(name = "role")
     private Role role;
     @ManyToOne
-    @JoinColumn(name = "user_status")
+    @JoinColumn(name = "status")
     private Status status;
 
     public User() {
     }
+
 
     public User(String mail, String password, String fullName,
                 Role role, Status status) {
@@ -38,6 +42,7 @@ public class User {
         this.fullName = fullName;
         this.role = role;
         this.status = status;
+        LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
     }
 
     public UUID getUuid() {

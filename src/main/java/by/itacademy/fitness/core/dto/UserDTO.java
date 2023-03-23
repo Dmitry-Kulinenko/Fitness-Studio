@@ -1,10 +1,14 @@
 package by.itacademy.fitness.core.dto;
 
+import by.itacademy.fitness.core.converter.json.LocalDateTimeToLong;
+import by.itacademy.fitness.core.converter.json.LongToLocalDateTime;
 import by.itacademy.fitness.dao.entity.Role;
 import by.itacademy.fitness.dao.entity.Status;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -20,7 +24,11 @@ import java.util.UUID;
 })
 public class UserDTO {
     private UUID uuid;
+    @JsonSerialize(converter = LocalDateTimeToLong.class)
+    @JsonDeserialize(converter = LongToLocalDateTime.class)
     private LocalDateTime creationDateTime;
+    @JsonSerialize(converter = LocalDateTimeToLong.class)
+    @JsonDeserialize(converter = LongToLocalDateTime.class)
     private LocalDateTime updateDateTime;
     private String mail;
     private String fullName;
