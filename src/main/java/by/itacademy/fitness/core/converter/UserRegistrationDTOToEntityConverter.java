@@ -7,7 +7,9 @@ import by.itacademy.fitness.dao.entity.User;
 import by.itacademy.fitness.service.api.IRoleService;
 import by.itacademy.fitness.service.api.IStatusService;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserRegistrationDTOToEntityConverter implements Converter<UserRegistrationDTO, User> {
     private IRoleService roleService;
     private IStatusService statusService;
