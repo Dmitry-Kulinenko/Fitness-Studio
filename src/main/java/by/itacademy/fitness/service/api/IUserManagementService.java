@@ -17,6 +17,6 @@ public interface IUserManagementService {
 
     UserDTO get(UUID uuid);
 
-    void update(UUID uuid, LocalDateTime updateDateTime, UserCreateUpdateDTO userCreateUpdateDTO);
+    int update(UUID uuid, LocalDateTime updateDateTime, UserCreateUpdateDTO userCreateUpdateDTO);
 
 }

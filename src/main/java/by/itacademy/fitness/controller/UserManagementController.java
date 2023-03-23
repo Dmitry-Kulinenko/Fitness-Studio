@@ -42,9 +42,9 @@ public class UserManagementController {
     }
 
     @PutMapping("/{uuid}/dt_update/{lastUpdated}")
-    public void updateUser(@PathVariable UUID uuid,
+    public ResponseEntity<Integer> updateUser(@PathVariable UUID uuid,
                            @PathVariable LocalDateTime lastUpdated,
-                           @RequestBody UserCreateUpdateDTO user) {
-        this.service.update(uuid, lastUpdated, user);
+                           @RequestBody @Valid UserCreateUpdateDTO user) {
+        return ResponseEntity.ok(service.update(uuid, lastUpdated, user));
     }
 }

@@ -15,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 @Service
@@ -57,19 +58,14 @@ public class UserManagementService implements IUserManagementService {
     }
 
     @Override
-    public void update(UUID uuid, LocalDateTime updateDateTime, UserCreateUpdateDTO userUpdateDTO) {
+    public int update(UUID uuid, LocalDateTime updateDateTime, UserCreateUpdateDTO userUpdateDTO) {
         Role role = roleService.findRoleByName(userUpdateDTO.getRole());
         Status status = statusService.findStatusByName(userUpdateDTO.getStatus());
-
-        userRepository.updateUserData(userUpdateDTO.getMail(),
-                userUpdateDTO.getPassword(),
-                userUpdateDTO.getFullName(),
-                role,
-                status,
-                uuid,
-                updateDateTime
-        );
-
+        return userRepository.updateUser(
+                userUpdateDTO.getMail(), userUpdateDTO.getPassword(),
+                userUpdateDTO.getFullName(), role, status,
+                LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS),
+                uuid, updateDateTime);
     }
 }
 
