@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS fitness.user (
     role smallint NOT NULL,
     status smallint NOT NULL,
     password character varying NOT NULL,
+    CONSTRAINT user_email UNIQUE (mail),
     CONSTRAINT user_pkey PRIMARY KEY (id),
     CONSTRAINT user_role_fkey FOREIGN KEY (role) REFERENCES fitness.user_role(id),
     CONSTRAINT user_status_fkey FOREIGN KEY (status) REFERENCES fitness.user_status(id)
