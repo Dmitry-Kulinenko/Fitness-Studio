@@ -16,7 +16,6 @@ public class Recipe {
     private String title;
     @Column(name = "dt_create")
     private LocalDateTime createDateTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
-    @Version
     @Column(name = "dt_update")
     private LocalDateTime updateDateTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})

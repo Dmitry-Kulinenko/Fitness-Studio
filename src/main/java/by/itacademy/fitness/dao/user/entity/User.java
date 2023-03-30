@@ -15,7 +15,6 @@ public class User {
     private UUID uuid;
     @Column(name = "dt_create")
     private LocalDateTime creationDateTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
-    @Version
     @Column(name = "dt_update")
     private LocalDateTime updateDateTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
 
