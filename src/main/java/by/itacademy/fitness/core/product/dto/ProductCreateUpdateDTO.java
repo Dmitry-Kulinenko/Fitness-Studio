@@ -1,19 +1,20 @@
 package by.itacademy.fitness.core.product.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public class ProductCreateUpdateDTO {
     @NotBlank(message = "The title is blank")
     private String title;
-    @NotBlank(message = "The weight is blank")
+    @NotNull(message = "The weight is null")
     private int weight;
-    @NotBlank(message = "The calories are blank")
+    @NotNull(message = "The calories value is null")
     private int calories;
-    @NotBlank(message = "The proteins are blank")
+    @NotNull(message = "The proteins value is null")
     private double proteins;
-    @NotBlank(message = "The fats are blank")
+    @NotNull(message = "The fats value is null")
     private double fats;
-    @NotBlank(message = "The carbohydrates are blank")
+    @NotNull(message = "The carbohydrates value is null")
     private double carbohydrates;
 
     public ProductCreateUpdateDTO(String title,
