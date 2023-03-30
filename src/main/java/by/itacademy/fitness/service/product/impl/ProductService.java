@@ -10,6 +10,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.UUID;
+
 @Service
 public class ProductService implements IProductService {
     private IProductRepository productRepository;
@@ -25,7 +29,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public void addProduct(ProductCreateUpdateDTO createUpdateDTO) {
+    public void add(ProductCreateUpdateDTO createUpdateDTO) {
         productRepository.save(dtoToEntityConverter.convert(createUpdateDTO));
     }
 
@@ -33,5 +37,23 @@ public class ProductService implements IProductService {
     public Page<ProductDTO> getPage(Pageable pageable) {
         Page<Product> products = productRepository.findAll(pageable);
         return products.map(entityToDtoConverter::convert);
+    }
+
+    @Override
+    public void update(UUID id, LocalDateTime updateDateTime, ProductCreateUpdateDTO createUpdateDTO) {
+        Product product = productRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+
+        if (!updateDateTime.equals(product.getUpdateDateTime())) {
+            throw new IllegalArgumentException();//FIXME
+        }
+        product.setTitle(createUpdateDTO.getTitle());
+        product.setWeight(createUpdateDTO.getWeight());
+        product.setCalories(createUpdateDTO.getCalories());
+        product.setProteins(createUpdateDTO.getProteins());
+        product.setFats(createUpdateDTO.getFats());
+        product.setCarbohydrates(createUpdateDTO.getCarbohydrates());
+        product.setUpdateDateTime(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
+
+        productRepository.save(product);
     }
 }
