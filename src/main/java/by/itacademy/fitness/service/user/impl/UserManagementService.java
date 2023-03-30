@@ -9,6 +9,7 @@ import by.itacademy.fitness.dao.user.repository.IUserRepository;
 import by.itacademy.fitness.service.user.api.IRoleService;
 import by.itacademy.fitness.service.user.api.IStatusService;
 import by.itacademy.fitness.service.user.api.IUserManagementService;
+import jakarta.transaction.Transactional;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,7 +24,6 @@ public class UserManagementService implements IUserManagementService {
     private IUserRepository userRepository;
     private IRoleService roleService;
     private IStatusService statusService;
-
     private Converter<UserCreateUpdateDTO, User> userCreateDTOtoEntityConverter;
     private Converter<User, UserDTO> userEntityToDTOConverter;
 
@@ -58,14 +58,22 @@ public class UserManagementService implements IUserManagementService {
     }
 
     @Override
+    @Transactional
     public void update(UUID uuid, LocalDateTime updateDateTime, UserCreateUpdateDTO userUpdateDTO) {
+        User user = userRepository.findById(uuid).orElseThrow(IllegalArgumentException::new);//FIXME
+
+        if (!updateDateTime.equals(user.getUpdateDateTime())) {
+            throw new IllegalArgumentException();//FIXME
+        }
         Role role = roleService.findRoleByName(userUpdateDTO.getRole());
         Status status = statusService.findStatusByName(userUpdateDTO.getStatus());
-        userRepository.updateUser(
-                userUpdateDTO.getMail(), userUpdateDTO.getPassword(),
-                userUpdateDTO.getFullName(), role, status,
-                LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS),
-                uuid, updateDateTime);
+
+        user.setUpdateDateTime(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
+        user.setMail(userUpdateDTO.getMail());
+        user.setPassword(userUpdateDTO.getPassword());
+        user.setFullName(userUpdateDTO.getFullName());
+        user.setRole(role);
+        user.setStatus(status);
+        userRepository.save(user);
     }
 }
-
