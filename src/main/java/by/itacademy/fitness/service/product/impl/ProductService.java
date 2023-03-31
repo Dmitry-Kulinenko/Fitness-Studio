@@ -41,10 +41,11 @@ public class ProductService implements IProductService {
 
     @Override
     public void update(UUID id, LocalDateTime updateDateTime, ProductCreateUpdateDTO createUpdateDTO) {
-        Product product = productRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        Product product = productRepository.findById(id).orElseThrow(() ->
+                new IllegalArgumentException("Product not found"));
 
         if (!updateDateTime.equals(product.getUpdateDateTime())) {
-            throw new IllegalArgumentException();//FIXME
+            throw new IllegalArgumentException("dt_update isn't equal last dt_update value");
         }
         product.setTitle(createUpdateDTO.getTitle());
         product.setWeight(createUpdateDTO.getWeight());

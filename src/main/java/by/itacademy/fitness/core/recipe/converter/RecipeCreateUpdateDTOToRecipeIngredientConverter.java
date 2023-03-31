@@ -23,7 +23,8 @@ public class RecipeCreateUpdateDTOToRecipeIngredientConverter implements Convert
         return source.getComposition().stream()
                 .map(compositionItem -> new RecipeIngredient(
                         productRepository.findById(
-                                compositionItem.getProduct()).orElseThrow(IllegalArgumentException::new),
+                                compositionItem.getProduct()).orElseThrow(() ->
+                                new IllegalArgumentException("Product not found")),
                         compositionItem.getWeight())).collect(Collectors.toCollection(ArrayList::new));
     }
 }

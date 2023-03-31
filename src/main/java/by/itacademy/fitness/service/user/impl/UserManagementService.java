@@ -53,17 +53,20 @@ public class UserManagementService implements IUserManagementService {
 
     @Override
     public UserDTO get(UUID uuid) {
-        User user = userRepository.findById(uuid).orElseThrow(IllegalArgumentException::new);//FIXME
+        User user = userRepository.findById(uuid).orElseThrow(
+                () -> new IllegalArgumentException("User not found")
+        );
         return userEntityToDTOConverter.convert(user);
     }
 
     @Override
     @Transactional
     public void update(UUID uuid, LocalDateTime updateDateTime, UserCreateUpdateDTO userUpdateDTO) {
-        User user = userRepository.findById(uuid).orElseThrow(IllegalArgumentException::new);//FIXME
+        User user = userRepository.findById(uuid).orElseThrow(
+                () -> new IllegalArgumentException("User not found"));
 
         if (!updateDateTime.equals(user.getUpdateDateTime())) {
-            throw new IllegalArgumentException();//FIXME
+            throw new IllegalArgumentException("dt_update isn't equal last dt_update value");
         }
         Role role = roleService.findRoleByName(userUpdateDTO.getRole());
         Status status = statusService.findStatusByName(userUpdateDTO.getStatus());

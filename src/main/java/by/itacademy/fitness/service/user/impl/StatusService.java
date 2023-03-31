@@ -17,6 +17,7 @@ public class StatusService implements IStatusService {
     @Override
     public Status findStatusByName(String status) {
         return statusRepository.findByStatusName(StatusEnum.valueOf(status))
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(() ->
+                        new IllegalArgumentException("Status not found"));
     }
 }

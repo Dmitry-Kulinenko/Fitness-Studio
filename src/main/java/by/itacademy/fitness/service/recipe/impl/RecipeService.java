@@ -53,10 +53,11 @@ public class RecipeService implements IRecipeService {
     @Override
     @Transactional
     public void update(UUID uuid, LocalDateTime updateDateTime, RecipeCreateUpdateDTO createUpdateDTO) {
-        Recipe recipe = recipeRepository.findById(uuid).orElseThrow(IllegalArgumentException::new);//FIXME
+        Recipe recipe = recipeRepository.findById(uuid).orElseThrow(
+                () -> new IllegalArgumentException("Recipe not found"));
 
         if (!updateDateTime.equals(recipe.getUpdateDateTime())) {
-            throw new IllegalArgumentException();//FIXME
+            throw new IllegalArgumentException("dt_update isn't equal last dt_update value");
         }
 
         List<RecipeIngredient> oldRecipeIngredients = recipe.getRecipeIngredients();
