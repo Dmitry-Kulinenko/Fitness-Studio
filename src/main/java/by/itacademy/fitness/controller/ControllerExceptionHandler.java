@@ -21,9 +21,13 @@ public class ControllerExceptionHandler {
         return ResponseEntity.badRequest().body(errorResponse);
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<SingleErrorResponse> fieldExceptionHandler(IllegalArgumentException e) {
+        SingleErrorResponse errorResponse = new SingleErrorResponse("structured_error", e.getLocalizedMessage());
+        return ResponseEntity.badRequest().body(errorResponse);
+    }
 
-
-    @ExceptionHandler()
+    @ExceptionHandler(Throwable.class)
     public ResponseEntity<SingleErrorResponse> allErrorsHandler(Throwable e) {
         return ResponseEntity.status(500).body(new SingleErrorResponse("server_error", e.getLocalizedMessage()));
     }

@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.access.expression.WebExpressionAuthorizationManager;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
@@ -50,11 +49,14 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/v1/users/verification").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/users/registration").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/users/login").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/v1/users/getInternal").access(new WebExpressionAuthorizationManager(
-                                "hasIpAddress('product-service') or hasIpAddress('audit-service') or hasIpAddress('report-service')"
-                        ))
                         .requestMatchers(HttpMethod.GET, "/api/v1/users/me").authenticated()
                         .requestMatchers("/api/v1/users/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/v1/product").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/v1/product").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/product/{uuid}/dt_update/{dt_update}").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/v1/recipe").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/recipe").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT,"/api/v1/recipe/{uuid}/dt_update/{dt_update}").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 );
 
