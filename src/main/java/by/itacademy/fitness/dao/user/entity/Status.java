@@ -1,5 +1,6 @@
 package by.itacademy.fitness.dao.user.entity;
 
+import by.itacademy.fitness.dao.user.entity.userenum.StatusEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.*;
@@ -15,7 +16,9 @@ public class Status {
     @Column(name = "id", nullable = false)
     @JsonIgnore
     private int id;
-    private String status;
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private StatusEnum statusName;
 
     public Status() {
     }
@@ -28,11 +31,11 @@ public class Status {
         this.id = id;
     }
 
-    public String getStatus() {
-        return status;
+    public StatusEnum getStatusName() {
+        return statusName;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setStatusName(StatusEnum statusName) {
+        this.statusName = statusName;
     }
 }

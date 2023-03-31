@@ -1,5 +1,6 @@
 package by.itacademy.fitness.dao.user.entity;
 
+import by.itacademy.fitness.dao.user.entity.userenum.RoleEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
@@ -11,7 +12,10 @@ public class Role {
     @Column(name = "id", nullable = false)
     @JsonIgnore
     private int id;
-    private String role;
+
+    @Column(name = "role")
+    @Enumerated(EnumType.STRING)
+    private RoleEnum roleName;
 
     public Role() {
     }
@@ -24,12 +28,11 @@ public class Role {
         this.id = id;
     }
 
-    public String getRole() {
-        return role;
+    public RoleEnum getRoleName() {
+        return roleName;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRoleName(RoleEnum roleName) {
+        this.roleName = roleName;
     }
-
 }

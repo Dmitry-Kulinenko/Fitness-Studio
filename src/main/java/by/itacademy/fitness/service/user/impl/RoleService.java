@@ -1,6 +1,7 @@
 package by.itacademy.fitness.service.user.impl;
 
 import by.itacademy.fitness.dao.user.entity.Role;
+import by.itacademy.fitness.dao.user.entity.userenum.RoleEnum;
 import by.itacademy.fitness.dao.user.repository.IRoleRepository;
 import by.itacademy.fitness.service.user.api.IRoleService;
 import org.springframework.stereotype.Service;
@@ -15,8 +16,7 @@ public class RoleService implements IRoleService {
 
     @Override
     public Role findRoleByName(String role) {
-        return roleRepository
-                .findByRoleIgnoreCase(role)
+        return roleRepository.findByRoleName(RoleEnum.valueOf(role))
                 .orElseThrow(IllegalArgumentException::new);
     }
 }

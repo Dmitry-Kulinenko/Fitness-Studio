@@ -1,6 +1,7 @@
 package by.itacademy.fitness.service.user.impl;
 
 import by.itacademy.fitness.dao.user.entity.Status;
+import by.itacademy.fitness.dao.user.entity.userenum.StatusEnum;
 import by.itacademy.fitness.dao.user.repository.IStatusRepository;
 import by.itacademy.fitness.service.user.api.IStatusService;
 import org.springframework.stereotype.Service;
@@ -15,8 +16,7 @@ public class StatusService implements IStatusService {
 
     @Override
     public Status findStatusByName(String status) {
-        return statusRepository
-                .findByStatusIgnoreCase(status)
+        return statusRepository.findByStatusName(StatusEnum.valueOf(status))
                 .orElseThrow(IllegalArgumentException::new);
     }
 }
