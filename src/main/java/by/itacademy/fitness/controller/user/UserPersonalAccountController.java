@@ -36,11 +36,6 @@ public class UserPersonalAccountController {
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@Valid @RequestBody UserLoginDTO userLogin) {
-//
-//        if (!userDataService.isActivated(userLogin.getMail())) {
-//            throw new BadCredentialsException(userLogin.getMail()
-//                    + " mail address has not been verified!");
-//        }
         String jwtToken = userPersonalAccountService.login(userLogin);
         return ResponseEntity
                 .status(HttpStatus.CREATED)

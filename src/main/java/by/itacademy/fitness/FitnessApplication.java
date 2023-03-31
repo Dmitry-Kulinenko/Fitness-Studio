@@ -8,7 +8,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 @SpringBootApplication
 @EnableConfigurationProperties({JwtProperty.class})
 public class FitnessApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(FitnessApplication.class, args);
     }
