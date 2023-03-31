@@ -53,10 +53,10 @@ public class RecipeService implements IRecipeService {
     @Override
     @Transactional
     public void update(UUID uuid, LocalDateTime updateDateTime, RecipeCreateUpdateDTO createUpdateDTO) {
-        Recipe recipe = recipeRepository.findById(uuid).orElseThrow(IllegalArgumentException::new);
+        Recipe recipe = recipeRepository.findById(uuid).orElseThrow(IllegalArgumentException::new);//FIXME
 
         if (!updateDateTime.equals(recipe.getUpdateDateTime())) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException();//FIXME
         }
 
         List<RecipeIngredient> oldRecipeIngredients = recipe.getRecipeIngredients();
