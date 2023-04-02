@@ -17,14 +17,14 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserManagementController {
-    private IUserManagementService service;
+    private final IUserManagementService service;
 
     public UserManagementController(IUserManagementService service) {
         this.service = service;
     }
 
     @PostMapping
-    public ResponseEntity addUser(@Valid @RequestBody UserCreateUpdateDTO user) {
+    public ResponseEntity addUser(@RequestBody UserCreateUpdateDTO user) {
         service.add(user);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .build();

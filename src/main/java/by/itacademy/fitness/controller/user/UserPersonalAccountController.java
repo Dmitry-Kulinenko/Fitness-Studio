@@ -4,7 +4,6 @@ import by.itacademy.fitness.core.user.dto.UserDTO;
 import by.itacademy.fitness.core.user.dto.UserLoginDTO;
 import by.itacademy.fitness.core.user.dto.UserRegistrationDTO;
 import by.itacademy.fitness.service.user.api.IUserPersonalAccountService;
-import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +34,7 @@ public class UserPersonalAccountController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@Valid @RequestBody UserLoginDTO userLogin) {
+    public ResponseEntity<String> login(@RequestBody UserLoginDTO userLogin) {
         String jwtToken = userPersonalAccountService.login(userLogin);
         return ResponseEntity
                 .status(HttpStatus.CREATED)

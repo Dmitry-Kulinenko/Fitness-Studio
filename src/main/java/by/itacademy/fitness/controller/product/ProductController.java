@@ -16,7 +16,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/v1/product")
 public class ProductController {
-    private IProductService productService;
+    private final IProductService productService;
 
     public ProductController(IProductService productService) {
         this.productService = productService;
