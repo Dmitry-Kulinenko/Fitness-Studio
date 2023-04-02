@@ -7,7 +7,11 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.time.LocalDateTime;
+import java.util.Locale;
 import java.util.UUID;
 
 @JsonPropertyOrder({
@@ -51,9 +55,9 @@ public class ProductDTO {
         this.title = title;
         this.weight = weight;
         this.calories = calories;
-        this.proteins = proteins;
-        this.fats = fats;
-        this.carbohydrates = carbohydrates;
+        this.proteins = calculateRealAmount(proteins);
+        this.fats = calculateRealAmount(fats);
+        this.carbohydrates = calculateRealAmount(carbohydrates);
     }
 
     @JsonProperty("uuid")
@@ -93,5 +97,11 @@ public class ProductDTO {
 
     public double getCarbohydrates() {
         return carbohydrates;
+    }
+
+    private double calculateRealAmount(double productValue) {
+        DecimalFormat df = new DecimalFormat(".##", DecimalFormatSymbols.getInstance(Locale.US));
+        df.setRoundingMode(RoundingMode.HALF_UP);
+        return Double.parseDouble(df.format(productValue));
     }
 }
