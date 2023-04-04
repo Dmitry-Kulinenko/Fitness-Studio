@@ -11,10 +11,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class RecipeEntiteToDTOConverter implements Converter<Recipe, RecipeDTO> {
+public class RecipeEntityToDTOConverter implements Converter<Recipe, RecipeDTO> {
     private Converter<Product, ProductDTO> productDTOConverter;
 
-    public RecipeEntiteToDTOConverter(Converter<Product, ProductDTO> productDTOConverter) {
+    public RecipeEntityToDTOConverter(Converter<Product, ProductDTO> productDTOConverter) {
         this.productDTOConverter = productDTOConverter;
     }
 

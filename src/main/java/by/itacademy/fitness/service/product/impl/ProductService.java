@@ -5,6 +5,7 @@ import by.itacademy.fitness.core.product.dto.ProductDTO;
 import by.itacademy.fitness.dao.product.entity.Product;
 import by.itacademy.fitness.dao.product.repository.IProductRepository;
 import by.itacademy.fitness.service.product.api.IProductService;
+import jakarta.transaction.Transactional;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,6 +41,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
+    @Transactional
     public void update(UUID id, LocalDateTime updateDateTime, ProductCreateUpdateDTO createUpdateDTO) {
         Product product = productRepository.findById(id).orElseThrow(() ->
                 new IllegalArgumentException("Product not found"));
